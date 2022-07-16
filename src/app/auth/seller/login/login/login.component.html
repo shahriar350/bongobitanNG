@@ -1,0 +1,33 @@
+<div class="flex justify-center">
+
+  <form [formGroup]="form" (ngSubmit)="submit_form()" class="md:w-6/12 sm:w-1/2 py-4 py-3 w-full shadow rounded">
+    <div *ngIf="server_errors.length > 0" class="bg-red-50">
+      <p *ngFor="let error of server_errors;let i=index" class="text-red-800 py-3 px-4 mb-2 font-medium text-base"> {{error}}</p>
+    </div>
+    <p class="text-center text-2xl font-medium">Seller login</p>
+    <mat-form-field class="w-full mb-2" appearance="fill">
+      <mat-label>Phone number</mat-label>
+      <input type="text" matInput formControlName="phone_number"
+             placeholder="Ex. 01752495467" [errorStateMatcher]="matcher">
+
+      <mat-error *ngIf="form.get('phone_number')?.hasError('required')">
+        Please enter your phone number.
+      </mat-error>
+      <mat-error *ngIf="form.get('phone_number')?.hasError('pattern')">
+        Please enter a valid phone number. Ex: 01752495467.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput formControlName="password"
+             [errorStateMatcher]="matcher">
+
+      <mat-error *ngIf="form.get('password')?.hasError('required')">
+        Please enter your password.
+      </mat-error>
+    </mat-form-field>
+
+    <button type="submit" mat-flat-button color="primary" class="w-full">Login</button>
+  </form>
+</div>
